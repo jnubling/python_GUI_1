@@ -93,7 +93,7 @@ def get_selected_option():
 
 option_one = ttk.Radiobutton(
     root,
-    text=f"{'Option 1' or storage_variable.get()}",
+    text="Option 1",
     variable=storage_variable,
     command=get_selected_option,
     value="First Option Selected"
@@ -116,22 +116,60 @@ option_one.grid(column=0)
 option_two.grid(column=0)
 option_three.grid(column=0)
 
+# =============================================================================
+# Comboboxes Widgets
+# =============================================================================
+selected_day = tk.StringVar()
+# stores the selected variable
+weekday = ttk.Combobox(
+    root,
+    textvariable=selected_day,
+    values=(
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"),
+    state="readonly"  # normal
+    )
+weekday.grid()
 
+def handle_selection(event):
+    print("Today is", selected_day.get())
+    
+weekday.bind("<<ComboboxSelected>>", handle_selection)
 
+# =============================================================================
+# Spinboxes Widgets
+# =============================================================================
+initial_value = tk.IntVar(value=20)
+spin_box = ttk.Spinbox(
+    root,
+    from_=0,
+    to=30,
+    textvariable=initial_value,
+    wrap=False,
+    state="readonly"
+    )
+spin_box.grid(column=1, row=1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# =============================================================================
+# Scale Widgets
+# =============================================================================
+def handle_scale_change(event):
+    print(scale.get())
+    
+current_value = tk.DoubleVar()
+scale = ttk.Scale(
+    root,
+    orient="horizontal",
+    from_=0,
+    to=10,
+    command=handle_scale_change,
+    variable=current_value,
+    )
+scale.grid(column=1, row=2, sticky="we")
+scale["state"] = "normal"  # disabled
 
 
 
